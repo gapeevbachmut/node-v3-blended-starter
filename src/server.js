@@ -3,12 +3,14 @@ import 'dotenv/config';
 import cors from 'cors';
 import { errors } from 'celebrate';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 import { logger } from './middleware/logger.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { connectMongoDB } from './db/connectMongoDB.js';
 import productsRoutes from './routes/productsRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 
@@ -18,7 +20,9 @@ app.use(logger);
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(cookieParser());
 
+app.use(authRoutes);
 app.use(productsRoutes);
 
 app.use(notFoundHandler); // 404
