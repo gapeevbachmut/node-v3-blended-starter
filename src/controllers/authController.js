@@ -32,7 +32,7 @@ export const registerUser = async (req, res, next) => {
 
 export const loginUser = async (req, res, next) => {
   const { username, email, password } = req.body;
-
+  //username, - не обов'язково при вході
   // Перевіряємо чи користувач  існує
   const user = await User.findOne({ username, email });
   if (!user) {
